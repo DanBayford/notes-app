@@ -1,0 +1,20 @@
+<div class="hidden lg:flex col-span-3 flex-col gap-4 border-l border-neutral-200 dark:border-neutral-700 p-6">
+  {% if note and note.is_archived == False %}
+    <button @click="archiveModal = true" class="btn btn__secondary">
+      {% include 'svgs/archive.svg' with styles='h-6' %}
+      Archive Note
+    </button>
+  {% endif %}
+  {% if note and note.is_archived == True %}
+    <button @click="restoreModal = true" class="btn btn__secondary">
+      {% include 'svgs/archive.svg' with styles='h-6' %}
+      Restore Note
+    </button>
+  {% endif %}
+  {% if note %}
+    <button @click="deleteModal = true" class="btn btn__secondary">
+      {% include 'svgs/delete.svg' with styles='w-6' %}
+      Delete Note
+    </button>
+  {% endif %}
+</div>

@@ -1,0 +1,37 @@
+{% extends "app.html" %} 
+{% block app_content %}
+{% include 'notes/partials/notesSearch.html' %}
+{% include 'notes/partials/notesList.html'%}
+<div class="{% if not note %}hidden{% else %}col-span-8{% endif %} lg:block lg:col-span-6 px-2 py-4">
+    <form method="POST" class="w-full flex flex-col gap-5">
+      {% csrf_token %}
+      <input type="text" name="title" placeholder="Enter a note title" {% if form.title.value != None %}value="{{ form.title.value|stringformat:'s' }}"{% endif %} class="text-2xl font-bold focus:outline-none dark:bg-neutral-950"/>
+      {% if form.title.errors %}
+        {{ form.title.errors }}
+      {% endif %}
+      <div class="flex">
+        <span class="basis-1/4 flex items-center">
+          {% include 'svgs/tag.svg' with styles='w-5 mr-2' %}
+          Tags: 
+        </span>
+        <input type="text" name="tags" placeholder="Add tags seperated by commas (e.g. Work, Planning)" value="{{ tag_string }}" class="basis-3/4 p-1 border focus:outline-none dark:bg-neutral-950"/>
+      </div>
+      {% if form.tags.errors %}
+        {{ form.tags.errors }}
+      {% endif %}
+      <div class="flex pb-2 border-b dark:border-neutral-700">
+        <span class="basis-1/4 flex items-center">
+          {% include 'svgs/tag.svg' with styles='w-5 mr-2' %}
+          Last edited
+        </span>
+        Not yet saved
+      </div>
+      <textarea id="note-content" name="content" placeholder="Add note content" class="w-full h-[calc(100vh-400px)] resize-none focus:outline-none dark:bg-neutral-950">{% if form.content.value %}{{ form.content.value }}{% else %}{% endif %}</textarea>
+      <div class="flex gap-4 pt-4 border-t dark:border-neutral-700">
+        <button type="submit" class="btn btn__primary">Save note</button>
+        <button class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</button>
+      </div>
+    </form>
+</div>
+{% include 'notes/partials/notesActions.html'%}
+{% endblock app_content %}

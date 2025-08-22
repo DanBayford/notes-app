@@ -1,0 +1,32 @@
+<div class="hidden lg:flex col-span-12 justify-between items-center px-4 border-b border-neutral-200 dark:border-neutral-700">
+  <h1 class="text-3xl font-bold">
+    {% if request.GET.tag %}
+      Notes tagged with '{{ request.GET.tag }}'
+    {% elif request.GET.search %}
+      Showing search results for '{{ request.GET.search }}'
+    {% elif 'settings' in request.path %}
+      Settings
+    {% elif '/notes/archived/' in request.get_full_path %}
+      Archived notes
+    {% elif '/notes/create/' in request.get_full_path %}
+      Create a new note
+    {% else %}
+      Active notes
+    {% endif %}
+  </h1>
+  <div class="flex gap-4 items-center">
+    <form action="{% url 'notes:all' %}" method="GET" class="relative">
+      <input
+        type="text"
+        name="search"
+        placeholder="Search active notes..."
+        class="w-[300px] border border-neutral-300 rounded pl-12 pr-2 py-3 focus:outline-none dark:text-white dark:bg-neutral-900"
+        value="{{ request.GET.search|default:'' }}"
+      >
+      <button type="submit" class="absolute top-3.5 left-3">{% include 'svgs/search.svg' with styles='w-6' %}</button>
+    </form>
+    <a href="{% url 'settings:menu' %}">
+      {% include 'svgs/settings.svg' with styles='w-8' %}
+    </a>
+  </div>
+</div>

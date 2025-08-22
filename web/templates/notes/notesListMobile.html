@@ -1,0 +1,16 @@
+{% extends "app.html" %} 
+{% block app_content %}
+<div class="col-span-8">
+  <a href="{% url 'tags:list' %}">Go back</a>
+  <h2 class="text-3xl font-bold">Notes tagged: {{ request.GET.tag }}</h2>
+  <ul>
+    {% for note in notes %}
+      <li>
+        <a href="{% url 'notes:detail' pk=note.id %}{% if request.GET.tag %}?tag={{ request.GET.tag }}{% endif %}">{{ note.title }}</a>
+      </li>
+    {% empty %}
+      <li>There are no notes</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock app_content %}

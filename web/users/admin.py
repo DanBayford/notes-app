@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, ProfileModel
 
 
 class CustomUserAdmin(UserAdmin):
@@ -47,4 +47,12 @@ class CustomUserAdmin(UserAdmin):
     ordering = ("email",)
 
 
+class ProfileAdmin(admin.ModelAdmin):
+    model = ProfileModel
+    list_display = ["user", "theme", "font"]
+    search_fields = ["user__email"]
+    ordering = ["user__email"]
+
+
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(ProfileModel, ProfileAdmin)

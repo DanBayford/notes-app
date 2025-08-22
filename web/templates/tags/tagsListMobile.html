@@ -1,0 +1,16 @@
+{% extends "app.html" %} 
+{% block app_content %}
+<div class="lg:hidden col-span-8 p-4 flex flex-col gap-4">
+  <h2 class="text-3xl font-bold">Tags</h2>
+  <ul class="flex flex-col gap-2">
+    {% for tag in all_active_tags %}
+      <li class="py-3 border-b border-neutral-300 dark:border-neutral-700">
+        <a href="{% url 'notes:list' %}?tag={{ tag }}" class="flex gap-2">
+          {% include 'svgs/tag.svg' with styles='w-6'%}
+          {{ tag.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock app_content %}

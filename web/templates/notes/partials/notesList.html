@@ -1,0 +1,47 @@
+<div class="{% if note %}hidden{% else %}col-span-8{% endif %} lg:block lg:col-span-3 p-4 border-r border-neutral-200 dark:border-neutral-700">
+  <div class="flex flex-col gap-2 mb-4">
+    <a href="{% url 'notes:create' %}" class="hidden lg:flex btn btn__primary">
+      {% include 'svgs/plus.svg' with styles='w-4' %}
+      Add New Note
+    </a>
+    <div class="flex flex-col gap-2 lg:hidden">
+      {% if request.get_full_path == '/notes/' %}
+        <h2 class="text-3xl font-bold">Active notes</h2>
+      {% elif request.get_full_path == '/notes/archived/' %}
+        <h2 class="text-3xl font-bold">Archived notes</h2>
+      {% elif request.GET.tag %}
+        <a href="{% url 'tags:list' %}">Go back</a>
+        <h2 class="text-3xl font-bold">Notes tagged: {{ request.GET.tag }}</h2>
+      {% endif %}
+    </div>
+    <div>
+      {% if request.get_full_path == '/notes/archived/' %}
+        <p class="text-neutral-500 text-sm">All your archived notes are stored here. You can restore or delete them any time.</p>
+      {% elif request.GET.tag %}
+        <p class="text-neutral-500 text-sm">All active notes with the "{{ request.GET.tag }}" tag are shown here.</p>
+      {% endif %}
+    </div>
+  </div>
+  <ul class="flex flex-col gap-3">
+  {% for note in notes %}
+    <li class="p-2 mb-2 rounded-md {% if note.id|stringformat:'s' in request.path %}bg-neutral-100 dark:bg-neutral-700{% endif %}">
+      {% if '/notes/archived/' in request.path %}
+        <a href="{% url 'notes:archived-detail' pk=note.id %}{% if request.GET.tag %}?tag={{ request.GET.tag }}{% elif request.GET.search %}?search={{ request.GET.search }}{% endif %}" class="flex flex-col gap-2">
+      {% else %}
+        <a href="{% url 'notes:detail' pk=note.id %}{% if request.GET.tag %}?tag={{ request.GET.tag }}{% elif request.GET.search %}?search={{ request.GET.search }}{% endif %}" class="flex flex-col gap-2">
+      {% endif %}
+          <p class="font-bold">{{ note.title }}</p>
+          <div class="flex flex-wrap gap-2">
+            {% for tag in note.tags.all %}
+            <span class="p-1 rounded-md text-sm bg-neutral-200 dark:bg-neutral-500">{{ tag.name }}</span>
+            {% endfor %}
+          </div>
+          <p class="text-neutral-700 dark:text-neutral-500">{{ note.created|date:"j M Y" }}</p>
+        </a>
+    </li>
+  {% empty %}
+    <li>There are no notes</li>
+  {% endfor %}
+  </ul>
+</div>
+

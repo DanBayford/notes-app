@@ -1,0 +1,71 @@
+{% if note and note.is_archived == False %}
+  <div x-show="archiveModal" class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
+      <div class="bg-white rounded-xl max-w-lg w-full dark:text-white dark:bg-neutral-700">
+        <div class="flex gap-5 pt-5 px-5 pb-3 border-b border-neutral-200 dark:border-neutral-500">
+          <span class="h-min p-2 rounded-xl bg-neutral-200 dark:bg-neutral-500">
+            {% include 'svgs/archive.svg' with styles='w-7' %}
+          </span>
+          <div>
+            <h2 class="text-lg font-bold">Archive Note</h2>
+            <p class="mb-4">Are you sure you want to archive this note? You can find it in the Archived Notes and restore it anytime.</p>
+          </div>
+        </div>
+        <div class="p-5 flex gap-5 justify-end">
+          <button @click="archiveModal = false" class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</button>
+          <form method="POST" action="{% url 'notes:archive' %}">
+            {% csrf_token %}
+            <input type="hidden" name="archive" value="{{ note.id }}"/>
+            <button type="submit" class="btn btn__primary">Archive Note</button>
+          </form>
+        </div>
+      </div>
+  </div>
+{% endif %}
+
+{% if note and note.is_archived == True %}
+  <div x-show="restoreModal" class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
+      <div class="bg-white rounded-xl max-w-lg w-full dark:text-white dark:bg-neutral-700">
+        <div class="flex gap-5 pt-5 px-5 pb-3 border-b border-neutral-200 dark:border-neutral-500">
+          <span class="h-min p-2 rounded-xl bg-neutral-200 dark:bg-neutral-500">
+            {% include 'svgs/archive.svg' with styles='w-7' %}
+          </span>
+          <div>
+            <h2 class="text-lg font-bold">Restore Note</h2>
+            <p class="mb-4">Are you sure you want to restore this note?</p>
+          </div>
+        </div>
+        <div class="p-5 flex gap-5 justify-end">
+          <button @click="restoreModal = false" class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</button>
+          <form method="POST" action="{% url 'notes:restore' %}">
+            {% csrf_token %}
+            <input type="hidden" name="restore" value="{{ note.id }}"/>
+            <button type="submit" class="btn btn__primary">Restore Note</button>
+          </form>
+        </div>
+      </div>
+  </div>
+{% endif %}
+
+{% if note %}
+  <div x-show="deleteModal" class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
+      <div class="bg-white rounded-xl max-w-lg w-full dark:text-white dark:bg-neutral-700">
+        <div class="flex gap-5 pt-5 px-5 pb-3 border-b border-neutral-200 dark:border-neutral-500">
+          <span class="h-min p-2 rounded-xl bg-neutral-200 dark:bg-neutral-500">
+            {% include 'svgs/archive.svg' with styles='w-7' %}
+          </span>
+          <div>
+            <h2 class="text-lg font-bold">Delete Note</h2>
+            <p class="mb-4">Are you sure you want to permanently delete this note? This action cannot be undone.</p>
+          </div>
+        </div>
+        <div class="p-5 flex gap-5 justify-end">
+          <button @click="deleteModal = false" class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</button>
+          <form method="POST" action="{% url 'notes:delete' %}">
+            {% csrf_token %}
+            <input type="hidden" name="delete" value="{{ note.id }}"/>
+            <button type="submit" class="btn text-white bg-red-500">Delete Note</button>
+          </form>
+        </div>
+      </div>
+  </div>
+{% endif %}

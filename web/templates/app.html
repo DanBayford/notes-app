@@ -1,0 +1,17 @@
+<!-- App.html - the logged in app template -->
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+<div x-data="{ archiveModal: false, restoreModal: false, deleteModal: false }" class="min-h-screen flex flex-col lg:flex-row {% if user.profile.get_user_font == 'SERIF'%}font-serif{% elif user.profile.get_user_font == 'MONO'%}font-mono{% else %}font-sans{% endif %}">
+    <div class="lg:hidden p-4 bg-neutral-100 dark:bg-neutral-900">
+      {% include 'svgs/logo.svg' with classes='w-32' %}
+    </div>
+    {% include 'navs/sideNav.html' %}
+    <div class="flex-grow grid grid-cols-8 gap-x-4 md:gap-x-6 lg:grid-cols-12 lg:grid-rows-[80px_1fr] dark:bg-neutral-950 dark:text-white">
+      {% block app_content %} {% endblock %}
+    </div>
+    {% include 'navs/mobileNav.html' %}
+    {% include 'notes/partials/notesModals.html' %}
+    {% include 'messages/messages.html' %}
+</div>
+{% endblock %}

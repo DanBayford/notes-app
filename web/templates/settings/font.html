@@ -1,0 +1,43 @@
+{% extends "app.html" %} 
+{% block app_content %}
+  {% include 'notes/partials/notesSearch.html' %}
+  {% include 'settings/partials/settingsMenu.html' %}
+  <div class="col-span-8 lg:col-span-9 p-6">
+    <h2 class="font-bold text-xl">Font Theme</h2>
+    <p>Choose your font theme:</p>
+    <form method="POST" class="mt-8 max-w-full lg:max-w-xl flex flex-col gap-6">
+      {% csrf_token %}
+      <div class="flex gap-4 items-center p-4 border border-neutral-300 rounded-lg has-[:checked]:bg-neutral-200 dark:border-neutral-700 dark:has-[:checked]:bg-neutral-800">
+        <div class="p-2 border border-neutral-300 rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-900">
+          {% include 'svgs/sans-serif.svg' with styles='w-6' %}
+        </div>
+        <div>
+          <label for="sans-font" class="font-bold">Sans-serif</label>
+          <p class="text-sm">Clean and modern, easy to read.</p>
+        </div>
+        <input id="sans-font" type="radio" name="font" value="SANS" {% if request.user.profile.get_user_font == "SANS" %}checked{% endif %} class="peer ml-auto"/>
+      </div>
+      <div class="flex gap-4 items-center p-4 border border-neutral-300 rounded-lg has-[:checked]:bg-neutral-200 dark:border-neutral-700 dark:has-[:checked]:bg-neutral-800">
+        <div class="p-2 border border-neutral-300 rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-900">
+          {% include 'svgs/serif.svg' with styles='w-6' %}
+        </div>
+        <div>
+          <label for="serif-font" class="font-bold">Serif</label>
+          <p class="text-sm">Classic and elegant for a timeless feel.</p>
+        </div>
+        <input id="serif-font" type="radio" name="font" value="SERIF" {% if request.user.profile.get_user_font == "SERIF" %}checked{% endif %} class="peer ml-auto"/>
+      </div>
+      <div class="flex gap-4 items-center p-4 border border-neutral-300 rounded-lg has-[:checked]:bg-neutral-200 dark:border-neutral-700 dark:has-[:checked]:bg-neutral-800">
+        <div class="p-2 border border-neutral-300 rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-900">
+          {% include 'svgs/monospace.svg' with styles='w-6' %}
+        </div>
+        <div>
+          <label for="mono-font" class="font-bold">Monospace</label>
+          <p class="text-sm">Code like, great for a technical vibe.</p>
+        </div>
+        <input id="mono-font" type="radio" name="font" value="MONO" {% if request.user.profile.get_user_font == "MONO" %}checked{% endif %} class="peer ml-auto"/>
+      </div>
+      <button type="submit" class="btn btn__primary ml-auto">Apply Changes</button>
+    </form>
+  </div>
+{% endblock app_content %}

@@ -1,0 +1,12 @@
+{% extends "app.html" %} 
+{% block app_content %}
+{% include 'notes/partials/notesSearch.html' %}
+{% include 'settings/partials/settingsMenu.html' %}
+{% if 'theme' in request.path %}
+  {% include 'settings/theme.html' %}
+{% elif 'font' in request.path %}
+  {% include 'settings/font.html' %}
+{% elif 'password-change' in request.path %}
+  {% include 'settings/password.html' %}
+{% endif %}
+{% endblock app_content %}

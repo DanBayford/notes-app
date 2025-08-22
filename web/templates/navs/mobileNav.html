@@ -1,0 +1,52 @@
+<section class="lg:hidden w-full h-[50px] md:h-[74px] border-t border-neutral-200 dark:text-white dark:bg-neutral-900 dark:border-neutral-700">
+  <nav class="mt-2">
+    <ul class="flex">
+      <li class="basis-1/5 px-4">
+        <a href="{% url 'notes:all' %}" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/notes/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
+          {% if request.get_full_path == '/notes/' %}
+            {% include 'svgs/home.svg' with styles='w-6' selected=True %}
+          {% else %}
+            {% include 'svgs/home.svg' with styles='w-6' %}
+          {% endif %}
+          <span class="hidden md:block {% if request.get_full_path == '/notes/' %}text-blue-700{% endif %}">Home</span>
+        </a>
+      </li>
+      <li class="basis-1/5 px-4">
+        <a href="#" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/search/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
+          {% include 'svgs/search.svg' with styles='w-6' %}
+          <span class="hidden md:block {% if request.get_full_path == '/search/' %}text-blue-700{% endif %}">Search</span>
+        </a>
+      </li>
+      <li class="basis-1/5 px-4">
+        <a href="{% url 'notes:archived-all' %}" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/notes/archived/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
+          {% if request.get_full_path == '/notes/archived/' %}
+            {% include 'svgs/archive.svg' with styles='w-6' selected=True %}
+          {% else %}
+            {% include 'svgs/archive.svg' with styles='w-6' %}
+          {% endif %}
+          <span class="hidden md:block {% if request.get_full_path == '/notes/archived/' %}text-blue-700{% endif %}">Archived</span>
+        </a>
+      </li>
+      <li class="basis-1/5 px-4">
+        <a href="{% url 'tags:list' %}" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/tags/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
+          {% if request.get_full_path == '/tags/' %}
+            {% include 'svgs/tag.svg' with styles='w-6' selected=True %}
+          {% else %}
+            {% include 'svgs/tag.svg' with styles='w-6' %}
+          {% endif %}
+          <span class="hidden md:block {% if request.get_full_path == '/tags/' %}text-blue-700{% endif %}">Tags</span>
+        </a>
+      </li>
+      <li class="basis-1/5 px-4">
+        <a href="{% url 'settings:menu' %}" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/settings/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
+          {% if request.get_full_path == '/settings/' %}
+            {% include 'svgs/settings.svg' with styles='w-6' selected=True %}
+          {% else %}
+            {% include 'svgs/settings.svg' with styles='w-6' %}
+          {% endif %}
+          <span class="hidden md:block {% if request.get_full_path == '/settings/' %}text-blue-700{% endif %}">Settings</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</section>

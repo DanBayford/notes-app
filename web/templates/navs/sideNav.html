@@ -1,0 +1,42 @@
+{% load static %}
+<section class="hidden lg:flex basis-[272px] flex-shrink-0 flex-col gap-8 p-8 border-r border-neutral-200 dark:bg-neutral-950 dark:text-white dark:border-neutral-700">
+  {% include 'svgs/logo.svg' with classes='w-40' %}
+  <nav>
+    <div class="border-b-2 border-neutral-200 dark:border-neutral-700">
+      <a href="{% url 'notes:all' %}" class="my-2 py-3 px-2 flex items-center gap-3 text-md rounded-md {% if request.get_full_path == '/notes/' %}bg-neutral-200 dark:bg-neutral-700{% endif %}">
+        {% if request.get_full_path == '/notes/' %}
+            {% include 'svgs/home.svg' with styles='w-6' selected=True %}Active notes
+            {% include 'svgs/chevron-right.svg' with styles="w-6" position='ml-auto' %}
+        {% else %}
+          {% include 'svgs/home.svg' with styles='w-6' %}Active notes
+        {% endif %}
+      </a> 
+    </div>
+    <div>
+      <ul>
+        {% for tag in all_active_tags %}
+          <li>
+            <a href="{% url 'notes:all' %}?tag={{ tag|urlencode }}" class="my-2 py-3 px-2 flex items-center gap-3 text-md rounded-md {% if request.GET.tag == tag.name %}bg-neutral-200 dark:bg-neutral-700{% endif %}">
+            {% if request.GET.tag == tag.name %}
+              {% include 'svgs/tag.svg' with styles='w-6' selected=True %}{{ tag.name }}
+              {% include 'svgs/chevron-right.svg' with styles="w-6" position='ml-auto' %}
+            {% else %}
+              {% include 'svgs/tag.svg' with styles='w-6' %}{{ tag.name }}
+            {% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="border-t-2 border-neutral-200 dark:border-neutral-700">
+      <a href="{% url 'notes:archived-all' %}" class="my-2 py-3 px-2 flex items-center gap-3 text-md rounded-md {% if request.get_full_path == '/notes/archived/' %}bg-neutral-200 dark:bg-neutral-700{% endif %}">
+        {% if request.get_full_path == '/notes/archived/' %}
+          {% include 'svgs/archive.svg' with styles='w-6' selected=True %}Archived
+          {% include 'svgs/chevron-right.svg' with styles="w-6" position='ml-auto' %}
+        {% else %}
+          {% include 'svgs/archive.svg' with styles='w-6' %}Archived
+        {% endif %}
+      </a>
+    </div>
+  </nav>
+</section>

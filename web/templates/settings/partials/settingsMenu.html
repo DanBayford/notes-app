@@ -1,0 +1,45 @@
+<nav class="{% if not request.get_full_path == '/settings/' %}hidden lg:block {% endif %}col-span-8 lg:col-span-3 flex-col gap-4 border-r dark:border-neutral-700">
+  <ul class="p-6 flex flex-col gap-4 text-md">
+    <li>
+      <a href="{% url 'settings:theme' %}" class="flex gap-2 p-2 rounded-md {% if request.get_full_path == '/settings/theme/' %}bg-neutral-200 dark:bg-neutral-700{% endif %}">
+        {% if request.path == '/settings/theme/'%}
+          {% include 'svgs/sun.svg' with styles='w-6' selected=True %}
+          Color Theme
+          {% include 'svgs/chevron-right.svg' with styles='w-6' position='ml-auto' %}
+        {% else %}
+          {% include 'svgs/sun.svg' with styles='w-6' %}
+          Color Theme
+        {% endif %}
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'settings:font' %}" class="flex gap-2 p-2 rounded-md {% if request.get_full_path == '/settings/font/' %}bg-neutral-200 dark:bg-neutral-700{% endif %}">
+        {% if request.path == '/settings/font/'%}
+          {% include 'svgs/font.svg' with styles='w-6' selected=True %}
+          Font Theme
+          {% include 'svgs/chevron-right.svg' with styles='w-6' position='ml-auto' %}
+        {% else %}
+          {% include 'svgs/font.svg' with styles='w-6' %}
+          Font Theme
+        {% endif %}
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'settings:password-change' %}" class="flex gap-2 p-2 rounded-md {% if request.get_full_path == '/settings/password-change/' %}bg-neutral-200 dark:bg-neutral-700{% endif %}">
+        {% if request.path == '/settings/password-change/'%}
+          {% include 'svgs/lock.svg' with styles='w-6' selected=True %}
+          Change Password
+          {% include 'svgs/chevron-right.svg' with styles='w-6' position='ml-auto' %}
+        {% else %}
+          {% include 'svgs/lock.svg' with styles='w-6' %}
+          Change Password
+        {% endif %}
+      </a>
+    </li>
+  </ul>
+  <span class="block mx-6 border-b dark:border-neutral-700"></span>
+  <a href="#" class="flex gap-2 px-8 py-6">
+    {% include 'svgs/logout.svg' with styles='w-6' %}
+    Log out
+  </a>
+</nav>

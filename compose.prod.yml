@@ -5,7 +5,7 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile.prod
-    container_name: django-docker-template-prod
+    container_name: notes-app
     command: gunicorn -c gunicorn.conf.py
     volumes:
       - static_volume:/home/app/web/staticfiles

@@ -1,0 +1,43 @@
+{% extends "app.html" %} 
+{% block app_content %}
+  {% include 'notes/partials/notesSearch.html' %}
+  {% include 'settings/partials/settingsMenu.html' %}
+  <div class="col-span-8 lg:col-span-9 p-6">
+    <h2 class="font-bold text-xl">Color Theme</h2>
+    <p>Choose your color theme:</p>
+    <form method="POST" class="mt-8 max-w-full lg:max-w-xl flex flex-col gap-6">
+      {% csrf_token %}
+      <div class="flex gap-4 items-center p-4 border border-neutral-300 rounded-lg has-[:checked]:bg-neutral-200 dark:border-neutral-700 dark:has-[:checked]:bg-neutral-800">
+        <div class="p-2 border border-neutral-300 rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-900">
+          {% include 'svgs/sun.svg' with styles='w-6' %}
+        </div>
+        <div>
+          <label for="light-theme" class="font-bold">Light Mode</label>
+          <p class="text-sm">Pick a clean and classic light theme.</p>
+        </div>
+        <input id="light-theme" type="radio" name="theme" value="LIGHT" {% if request.user.profile.get_user_theme == "LIGHT" %}checked{% endif %} class="peer ml-auto"/>
+      </div>
+      <div class="flex gap-4 items-center p-4 border border-neutral-300 rounded-lg has-[:checked]:bg-neutral-200 dark:border-neutral-700 dark:has-[:checked]:bg-neutral-800">
+        <div class="p-2 border border-neutral-300 rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-900">
+          {% include 'svgs/moon.svg' with styles='w-6' %}
+        </div>
+        <div>
+          <label for="dark-theme" class="font-bold">Dark Mode</label>
+          <p class="text-sm">Select a sleek and modern theme.</p>
+        </div>
+        <input id="dark-theme" type="radio" name="theme" value="DARK" {% if request.user.profile.get_user_theme == "DARK" %}checked{% endif %} class="peer ml-auto"/>
+      </div>
+      <div class="flex gap-4 items-center p-4 border border-neutral-300 rounded-lg has-[:checked]:bg-neutral-200 dark:border-neutral-700 dark:has-[:checked]:bg-neutral-800">
+        <div class="p-2 border border-neutral-300 rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-900">
+          {% include 'svgs/system.svg' with styles='w-6' %}
+        </div>
+        <div>
+          <label for="system-theme" class="font-bold">System</label>
+          <p class="text-sm">Adapts to your systems theme.</p>
+        </div>
+        <input id="system-theme" type="radio" name="theme" value="SYSTEM" {% if request.user.profile.get_user_theme == "SYSTEM" %}checked{% endif %} class="peer ml-auto"/>
+      </div>
+      <button type="submit" class="btn btn__primary ml-auto">Apply Changes</button>
+    </form>
+  </div>
+{% endblock app_content %}
