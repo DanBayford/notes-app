@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./templates/**/*.html",
     "./templates/**/*.svg",
-    "./tailwind/inputs.css",
+    "./frontend/inputs.css",
   ],
   darkMode: "selector",
   theme: {
@@ -41,16 +41,6 @@ module.exports = {
           100: "#ffd5d8",
           500: "#fb3748",
         },
-      },
-      keyframes: {
-        fadeOut: {
-          "0%": { opacity: "1" },
-          "90%": { opacity: "1" },
-          "100%": { opacity: "0" },
-        },
-      },
-      animation: {
-        fadeOut: "fadeOut 6s ease-out forwards",
       },
     },
   },

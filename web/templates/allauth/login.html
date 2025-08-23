@@ -1,0 +1,64 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% load allauth account %} 
+{% block content %}
+<main class="auth bg-blue-50">
+  <section class="col-start-2 col-span-12 flex flex-col justify-center">
+    <div class="mx-auto w-[476px] p-8 bg-white rounded-xl">
+      <span class="flex justify-center mb-4 text-[#000]">
+      {% include 'svgs/logo.svg' with classes='w-38'%}
+      </span>
+      <h1 class="text-center font-bold text-3xl mb-2">Welcome to Notes</h1>
+      <p class="text-center text-gray-400 mb-6">
+        Please log in to continue
+      </p>
+      {% url 'account_login' as login_url %} 
+      {% element form form=form method="post" action=login_url tags="entrance,login" %} 
+      {% slot body %} 
+      {% csrf_token %}
+      <div class="flex flex-col gap-2 mb-6">
+        {{ form.login.errors | safe }}
+        <label for="email" class="mb-1">Email Address</label>
+        <input
+          class="p-2 border border-neutral-300 rounded focus:outline-none"
+          type="email"
+          name="login"
+          placeholder="dan@notes.com"
+          autocomplete="email"
+          maxlength="320"
+          required
+          id="id_login"
+        />
+      </div>
+      <div class="flex flex-col mb-12">
+        {{ form.password.errors | safe }}
+        <label for="id_password" class="mb-1">Password</label>
+        <input
+        class="p-2 border border-neutral-300 rounded focus:outline-none"
+          type="text"
+          name="password"
+          placeholder="password"
+          required
+          id="id_password"
+        />
+      </div>
+      {% if redirect_field_value %}
+      <input
+        type="hidden"
+        name="{{ redirect_field_name }}"
+        value="{{ redirect_field_value }}"
+      />
+      {% endif %} 
+      {% endslot %} 
+      {% slot actions %}
+      <button class="btn btn__primary w-full" type="submit">Login</button>
+      <p class="mt-4 text-center text-gray-400">
+        Don't have an account?
+        <a class="text-blue-500" href="{{ signup_url }}">Sign Up</a>
+      </p>
+      {% endslot %} 
+      {% endelement %}
+    </div>
+  </section>
+</main>
+{% endblock content %}

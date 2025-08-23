@@ -1,0 +1,77 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% load allauth account %} 
+{% block content %}
+<main class="auth bg-blue-50">
+  <section class="col-start-2 col-span-12 flex flex-col justify-center">
+    <div class="mx-auto w-[476px] p-8 bg-white rounded-xl">
+      <span class="flex justify-center mb-4 text-[#000]">
+        {% include 'svgs/logo.svg' with classes='w-38'%}
+      </span>
+      <h1 class="text-center font-bold text-3xl mb-2">Create Your Account</h1>
+      <p class="text-center text-gray-400 mb-6">
+        Sign up to start organising your notes
+      </p>
+      <form method="post" action="{{ account_signup }}">
+        {% csrf_token %}
+        <div class="flex flex-col mb-6">
+          {{ form.signup.errors | safe }}
+          <label for="id_email" class="mb-1">Email:</label>
+          <input
+            class="p-2 border border-neutral-300 rounded focus:outline-none"
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            maxlength="320"
+            required
+            id="id_email"
+          />
+          {% if form.email.errors %}
+            {{ form.email.errors | safe }}
+          {% endif %}
+        </div>
+        <div class="flex flex-col mb-6">
+          <label for="id_password1" class="mb-1">Password:</label>
+          <input
+            class="p-2 border border-neutral-300 rounded focus:outline-none"
+            type="password"
+            name="password1"
+            placeholder="Enter a password"
+            required
+            id="id_password1"
+          />
+          {% if form.password1.errors %}
+            {{ form.password1.errors | safe }}
+          {% endif %}
+        </div>
+        <div class="flex flex-col mb-12">
+          <label for="id_password2" class="mb-1">Password (again):</label>
+          <input
+            class="p-2 border border-neutral-300 rounded focus:outline-none"
+            type="password"
+            name="password2"
+            placeholder="Enter the password again"
+            required
+            id="id_password2"
+          />
+          {% if form.password2.errors %}
+            {{ form.password1.errors | safe }}
+          {% endif %}
+        </div>
+        {% if redirect_field_value %}
+        <input
+          type="hidden"
+          name="{{ redirect_field_name }}"
+          value="{{ redirect_field_value }}"
+        />
+        {% endif %}
+        <button class="btn btn__primary w-full" type="submit">Sign Up</button>
+        <p class="mt-4 text-center text-gray-400">
+          Already have an account?
+          <a class="text-blue-500" href="{{ login_url }}">Login</a>
+        </p>
+      </form>
+    </div>
+  </section>
+</main>
+{% endblock content %}

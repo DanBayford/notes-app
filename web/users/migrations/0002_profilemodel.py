@@ -8,21 +8,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProfileModel',
+            name="ProfileModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('theme', models.CharField(choices=[('LIGHT', 'Light'), ('DARK', 'Dark'), ('SYSTEM', 'System')], default='SYSTEM', max_length=10)),
-                ('font', models.CharField(choices=[('SANS', 'Sans'), ('SERIF', 'Serif'), ('MONO', 'Mono')], default='SANS', max_length=10)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "theme",
+                    models.CharField(
+                        choices=[
+                            ("LIGHT", "Light"),
+                            ("DARK", "Dark"),
+                            ("SYSTEM", "System"),
+                        ],
+                        default="SYSTEM",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "font",
+                    models.CharField(
+                        choices=[
+                            ("SANS", "Sans"),
+                            ("SERIF", "Serif"),
+                            ("MONO", "Mono"),
+                        ],
+                        default="SANS",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'User profile',
-                'verbose_name_plural': 'User profiles',
+                "verbose_name": "User profile",
+                "verbose_name_plural": "User profiles",
             },
         ),
     ]

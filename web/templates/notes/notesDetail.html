@@ -15,7 +15,7 @@
           {% include 'svgs/tag.svg' with styles='w-5 mr-2' %}
           Tags: 
         </span>
-        <input type="text" name="tags" value="{{ tag_string }}" class="basis-3/4 p-1 border focus:outline-none dark:bg-neutral-950"/>
+        <input type="text" name="tags" value="{{ tag_string }}" class="basis-3/4 p-1 border border-neutral-300 rounded focus:outline-none dark:bg-neutral-950"/>
       </div>
       {% if form.tags.errors %}
         {{ form.tags.errors }}
@@ -30,7 +30,7 @@
       <textarea id="note-content" name="content" class="w-full h-[calc(100vh-350px)] resize-none focus:outline-none dark:bg-neutral-950">{{note.content}}</textarea>
       <div class="flex gap-4 pt-4 border-t dark:border-neutral-700">
         <button type="submit" class="btn btn__primary">Save note</button>
-        <button class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</button>
+        <a href="/notes" class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</a>
       </div>
     </form>
   {% endif %}

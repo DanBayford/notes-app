@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+  }
+
+  body {
+    transition: font-family 0.3s ease;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply flex justify-center gap-2 items-center py-3 px-4 rounded-lg hover:cursor-pointer;
+  }
+  .btn__primary {
+    @apply bg-blue-500 text-white;
+  }
+  .btn__secondary {
+    @apply justify-start border border-neutral-300 dark:border-neutral-600;
+  }
+}
+
+.errorlist {
+  @apply text-red-500;
+}
+
+main.auth {
+  display: grid;
+  grid-template-columns: 1fr repeat(12, 64px) 1fr;
+  min-height: 100vh;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@utility animate-fadeOut {
+  animation: fadeOut 5s ease-out forwards;
+}

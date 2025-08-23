@@ -11,25 +11,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Notes</title>
-    <link href="{% static '/css/styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
   </head>
-{% if user and user.profile.get_user_theme == 'LIGHT'%}
-  <body id="app" class="h-screen" data-theme="light">
-{% elif user and user.profile.get_user_theme == 'DARK'%}
-  <body id="app" class="h-screen" data-theme="dark">
-{% else %}
-  <body id="app" class="h-screen" data-theme="system">
-{% endif %}
     <main>{% block content %} {% endblock %}</main>
   </body>
   <script
     type="text/javascript"
-    src="{% static '/js/main.js' %}"
+    src="{% static 'js/main.js' %}"
     defer
   ></script>
   <script
     type="text/javascript"
-    src="{% static '/js/alpine.min.js' %}"
+    src="{% static 'js/alpine.min.js' %}"
     defer
   ></script>
 </html>

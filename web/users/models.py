@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager() # type: ignore
+    objects = CustomUserManager()  # type: ignore
 
     def __str__(self):
         return self.email
@@ -24,7 +24,7 @@ class ProfileModel(models.Model):
         CustomUser, on_delete=models.CASCADE, related_name="profile"
     )
     theme = models.CharField(
-        max_length=10, choices=AppThemeEnum.choices(), default=AppThemeEnum.SYSTEM.name
+        max_length=10, choices=AppThemeEnum.choices(), default=AppThemeEnum.LIGHT.name
     )
     font = models.CharField(
         max_length=10, choices=AppFontEnum.choices(), default=AppFontEnum.SANS.name
