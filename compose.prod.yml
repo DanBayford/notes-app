@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  web:
+  notes:
     build:
       context: ./web
       dockerfile: Dockerfile.prod

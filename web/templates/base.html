@@ -2,13 +2,37 @@
 {% load static %}
 <!DOCTYPE html>
 {% if user and user.profile.get_user_theme == 'LIGHT'%}
-  <html lang="en" class="light">
+  <html lang="en" data-theme="light">
 {% elif user and user.profile.get_user_theme == 'DARK'%}
-  <html lang="en" class="dark">
+  <html lang="en" data-theme="dark">
 {% else %}
-  <html lang="en">
+  <html lang="en" data-theme="system">
 {% endif %}
   <head>
+    <script>
+      // Script in <head> so executes before styling applied
+      const root = document.documentElement;
+      const userTheme = root.getAttribute("data-theme");
+      // Apply theme based on user preference
+      if (userTheme === "system") {
+        const prefersDarkMode = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (prefersDarkMode) {
+          root.setAttribute("data-theme", "dark");
+        }
+        // Listen for system preference changes
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            if (e.matches) {
+              root.classList.add("dark");
+            } else {
+              root.classList.remove("dark");
+            }
+          });
+      }
+    </script>
     <meta charset="UTF-8" />
     <title>Notes</title>
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />

@@ -20,7 +20,7 @@
         type="text"
         name="search"
         placeholder="Search active notes..."
-        class="w-[300px] border border-neutral-300 rounded pl-12 pr-2 py-3 focus:outline-none dark:text-white dark:bg-neutral-900"
+        class="w-[300px] border border-neutral-200 dark:border-neutral-700 rounded pl-12 pr-2 py-3 focus:outline-none dark:text-white dark:bg-neutral-900"
         value="{{ request.GET.search|default:'' }}"
       >
       <button type="submit" class="absolute top-3.5 left-3">{% include 'svgs/search.svg' with styles='w-6' %}</button>

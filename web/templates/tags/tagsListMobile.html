@@ -5,7 +5,7 @@
   <ul class="flex flex-col gap-2">
     {% for tag in all_active_tags %}
       <li class="py-3 border-b border-neutral-300 dark:border-neutral-700">
-        <a href="{% url 'notes:list' %}?tag={{ tag }}" class="flex gap-2">
+        <a href="{% url 'notes:all' %}?tag={{ tag }}" class="flex gap-2">
           {% include 'svgs/tag.svg' with styles='w-6'%}
           {{ tag.name }}
         </a>

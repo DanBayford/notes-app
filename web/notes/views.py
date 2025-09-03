@@ -1,15 +1,19 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import UpdateView, CreateView, TemplateView
 from django.urls import reverse
+from tags.models import TagModel
 from .forms import NotesForm
 from .mixins import TagProcessingMixin
 from .models import NoteModel
 
 
 @require_POST
+@login_required
 def archive_note(request):
     note_id = request.POST.get("archive")
 
@@ -30,6 +34,7 @@ def archive_note(request):
 
 
 @require_POST
+@login_required
 def restore_note(request):
     note_id = request.POST.get("restore")
 
@@ -48,6 +53,7 @@ def restore_note(request):
 
 
 @require_POST
+@login_required
 def delete_note(request):
     note_id = request.POST.get("delete")
 
@@ -55,6 +61,9 @@ def delete_note(request):
         note = NoteModel.objects.get(id=note_id)
         note_was_archived = note.is_archived
         note.delete()
+
+        # Delete any orphaned Tags
+        TagModel.objects.filter(notes=None, user=request.user).delete()
 
         if note_was_archived:
             messages.success(request, "Archived note successfully deleted")
@@ -70,7 +79,7 @@ def delete_note(request):
         return redirect(referer)
 
 
-class NotesDetailView(TagProcessingMixin, UpdateView):
+class NotesDetailView(LoginRequiredMixin, TagProcessingMixin, UpdateView):
     model = NoteModel
     form_class = NotesForm
     template_name = "notes/notesDetail.html"
@@ -143,7 +152,7 @@ class NotesDetailView(TagProcessingMixin, UpdateView):
         )
 
 
-class NotesCreateView(TagProcessingMixin, CreateView):
+class NotesCreateView(LoginRequiredMixin, TagProcessingMixin, CreateView):
     model = NoteModel
     form_class = NotesForm
     template_name = "notes/notesCreate.html"
@@ -195,27 +204,11 @@ class NotesCreateView(TagProcessingMixin, CreateView):
         )
 
 
-class NotesListMobile(TemplateView):
-    template_name = "notes/notesListMobile.html"
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        params = self.request.GET.dict()
-
-        query_filter = Q(is_archived=False)
-
-        if "tag" in params:
-            tag = params["tag"]
-            query_filter &= Q(tags__name=tag)
-
-        ctx["notes"] = NoteModel.objects.filter(author=self.request.user).filter(
-            query_filter
-        )
-
-        return ctx
+class NotesSearchView(LoginRequiredMixin, TemplateView):
+    template_name = "notes/notesSearch.html"
 
 
-class ArchivedNotesDetailView(TagProcessingMixin, UpdateView):
+class ArchivedNotesDetailView(LoginRequiredMixin, TagProcessingMixin, UpdateView):
     model = NoteModel
     form_class = NotesForm
     template_name = "notes/notesDetail.html"

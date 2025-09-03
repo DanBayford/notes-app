@@ -1,5 +1,5 @@
 <nav
-  class="{% if not request.get_full_path == '/settings/' %}hidden lg:block {% endif %}col-span-8 lg:col-span-3 flex-col gap-4 border-r dark:border-neutral-700"
+  class="{% if not request.get_full_path == '/settings/' %}hidden lg:block {% endif %}col-span-8 lg:col-span-3 flex-col gap-4 border-r border-neutral-200 dark:border-neutral-700"
 >
   <ul class="p-6 flex flex-col gap-4 text-md">
     <li>
@@ -42,7 +42,7 @@
       </a>
     </li>
   </ul>
-  <span class="block mx-6 border-b dark:border-neutral-700"></span>
+  <span class="block mx-6 border-b border-neutral-200 dark:border-neutral-700"></span>
   <a href="{% url 'account_logout' %}" class="flex gap-2 px-8 py-6">
     {% include 'svgs/logout.svg' with styles='w-6' %} Log out
   </a>

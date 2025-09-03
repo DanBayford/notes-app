@@ -12,9 +12,13 @@
         </a>
       </li>
       <li class="basis-1/5 px-4">
-        <a href="#" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/search/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
-          {% include 'svgs/search.svg' with styles='w-6' %}
-          <span class="hidden md:block {% if request.get_full_path == '/search/' %}text-blue-700{% endif %}">Search</span>
+        <a href="{% url 'notes:search' %}" class="flex flex-col items-center py-1 rounded-md {% if request.get_full_path == '/notes/search/' %}bg-blue-50 dark:bg-neutral-800{% endif %}">
+          {% if request.get_full_path == '/notes/search/' %}
+            {% include 'svgs/search.svg' with styles='w-6' selected=True %}
+          {% else %}
+            {% include 'svgs/search.svg' with styles='w-6' %}
+          {% endif %}
+          <span class="hidden md:block {% if request.get_full_path == '/notes/search/' %}text-blue-700{% endif %}">Search</span>
         </a>
       </li>
       <li class="basis-1/5 px-4">

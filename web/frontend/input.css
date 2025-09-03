@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer base {
   :root {
@@ -25,12 +25,6 @@
 
 .errorlist {
   @apply text-red-500;
-}
-
-main.auth {
-  display: grid;
-  grid-template-columns: 1fr repeat(12, 64px) 1fr;
-  min-height: 100vh;
 }
 
 @keyframes fadeOut {

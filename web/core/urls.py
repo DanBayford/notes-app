@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from allauth.account.views import LoginView, SignupView, LogoutView  # type:ignore
 
 
@@ -10,10 +11,23 @@ urlpatterns = [
     path("settings/", include("users.urls")),
     path("tags/", include("tags.urls")),
     path("admin/", admin.site.urls),
-    path('login/', LoginView.as_view(success_url="/notes", template_name="allauth/login.html"), name="account_login"),
-    path('signup/', SignupView.as_view(success_url="/notes" ,template_name="allauth/signup.html"), name="account_signup"),
-    path('logout/', LogoutView.as_view(template_name="allauth/logout.html"), name="account_logout"), # logout URL set in base.py 
-    path("", include("health.urls")),
+    path(
+        "login/",
+        LoginView.as_view(success_url="/notes", template_name="allauth/login.html"),
+        name="account_login",
+    ),
+    path(
+        "signup/",
+        SignupView.as_view(success_url="/notes", template_name="allauth/signup.html"),
+        name="account_signup",
+    ),
+    path(
+        "logout/",
+        LogoutView.as_view(template_name="allauth/logout.html"),
+        name="account_logout",
+    ),  # logout URL set in base.py
+    path("health/", include("health.urls")),
+    path("", RedirectView.as_view(url="/notes/", permanent=True))
 ]
 
 if settings.DEBUG:

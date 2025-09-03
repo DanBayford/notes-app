@@ -18,7 +18,7 @@ INSTALLED_APPS.insert(7, "django_browser_reload")
 
 # Immediately afterr secutiry middleware
 MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
-MIDDLEWARE.insert(2, "debug_toolbar.middleware.DebugToolbarMiddleware")
+MIDDLEWARE.insert(2, "django_browser_reload.middleware.BrowserReloadMiddleware")
 
 """
 Required for debug toolbar

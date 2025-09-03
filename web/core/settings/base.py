@@ -9,8 +9,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'allauth',
-    'allauth.account',
+    "allauth",
+    "allauth.account",
     "users",
     "health",
     "tags",
@@ -77,20 +77,19 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
+    "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-# all auth config due to custom user model
+# all-auth config due to custom user model
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"] # * means required
+ACCOUNT_LOGIN_METHODS = {"email"}
 SITE_ID = 1
-LOGOUT_REDIRECT_URL = '/login'
-ACCOUNT_EMAIL_VERIFICATION = "none"   # no email verification
-ACCOUNT_EMAIL_REQUIRED = False 
+LOGIN_URL = "/login"  # Redirect fro unauthed users
+LOGOUT_REDIRECT_URL = "/login"
+ACCOUNT_EMAIL_VERIFICATION = "none"  # disable email verification
 
 # Internationalisation and time config
 LANGUAGE_CODE = "en-us"

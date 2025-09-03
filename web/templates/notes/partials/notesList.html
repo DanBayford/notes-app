@@ -1,4 +1,4 @@
-<div class="{% if note %}hidden{% else %}col-span-8{% endif %} lg:block lg:col-span-3 p-4 border-r border-neutral-200 dark:border-neutral-700">
+<div class="{% if request.path == '/notes/' or request.path == '/notes/archived/' %}col-span-8{% else %}hidden{% endif %} lg:block lg:col-span-3 p-4 border-r border-neutral-200 dark:border-neutral-700">
   <div class="flex flex-col gap-2 mb-4">
     <a href="{% url 'notes:create' %}" class="hidden lg:flex btn btn__primary">
       {% include 'svgs/plus.svg' with styles='w-4' %}
@@ -22,9 +22,12 @@
       {% endif %}
     </div>
   </div>
+  {% if request.GET.search %}
+  <p class="lg:hidden text-lg font-bold mb-4">Showing search results for '{{ request.GET.search }}'</p>
+  {% endif %}
   <ul class="flex flex-col gap-3">
   {% for note in notes %}
-    <li class="p-2 mb-2 rounded-md {% if note.id|stringformat:'s' in request.path %}bg-neutral-100 dark:bg-neutral-700{% endif %}">
+    <li class="p-2 mb-2 border-b border-neutral-200 dark:border-neutral-500" {% if note.id|stringformat:'s' in request.path %}bg-neutral-100 dark:bg-neutral-700{% endif %}">
       {% if '/notes/archived/' in request.path %}
         <a href="{% url 'notes:archived-detail' pk=note.id %}{% if request.GET.tag %}?tag={{ request.GET.tag }}{% elif request.GET.search %}?search={{ request.GET.search }}{% endif %}" class="flex flex-col gap-2">
       {% else %}
@@ -40,8 +43,13 @@
         </a>
     </li>
   {% empty %}
-    <li>There are no notes</li>
+    {% if request.GET.search %}
+      <li>There are no notes for '{{request.GET.search}}'</li>
+    {% endif %}
   {% endfor %}
   </ul>
+   <a href="{% url 'notes:create' %}" class="fixed lg:hidden bottom-18 md:bottom-24 right-4 bg-blue-500 rounded-[50%] p-1">
+      {% include 'svgs/plus.svg' with styles='w-10' %}
+    </a>
 </div>
 

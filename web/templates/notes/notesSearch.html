@@ -1,0 +1,14 @@
+<!-- Used on mobiles views -->
+{% extends "app.html" %} 
+{% block app_content %}
+<form action="{% url 'notes:all' %}" method="GET" class="col-span-8 mt-6 mx-6 relative">
+    <input
+      type="text"
+      name="search"
+      placeholder="Search active notes..."
+      class="w-full border border-neutral-200 dark:border-neutral-700 rounded pl-12 pr-2 py-3 focus:outline-none dark:text-white dark:bg-neutral-900"
+      value="{{ request.GET.search|default:'' }}"
+    >
+    <button type="submit" class="absolute top-3.5 left-3">{% include 'svgs/search.svg' with styles='w-6' %}</button>
+</form>
+{% endblock app_content %}

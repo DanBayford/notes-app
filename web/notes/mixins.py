@@ -28,11 +28,11 @@ class TagProcessingMixin:
         """
         updated_tags = []
         for tag in tags:
-            tag, created = TagModel.objects.get_or_create(name=tag)
+            tag, created = TagModel.objects.get_or_create(name=tag, user=self.request.user)
             updated_tags.append(tag)
 
         # Update note instance
         note.tags.set(updated_tags)
 
         # Clean any orphaned Tag instances
-        TagModel.objects.filter(notes=None).delete()
+        TagModel.objects.filter(notes=None, user=self.request.user).delete()

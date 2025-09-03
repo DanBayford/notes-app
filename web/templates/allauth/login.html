@@ -2,8 +2,8 @@
 {% load static %} 
 {% load allauth account %} 
 {% block content %}
-<main class="auth bg-blue-50">
-  <section class="col-start-2 col-span-12 flex flex-col justify-center">
+<main class="grid min-h-screen grid-cols-[1fr_476px_1fr] bg-blue-50">
+  <section class="col-start-2 col-end-3 flex flex-col justify-center">
     <div class="mx-auto w-[476px] p-8 bg-white rounded-xl">
       <span class="flex justify-center mb-4 text-[#000]">
       {% include 'svgs/logo.svg' with classes='w-38'%}
@@ -28,20 +28,22 @@
           maxlength="320"
           required
           id="id_login"
+          value="{{ form.login.value|default_if_none:'' }}"
         />
       </div>
-      <div class="flex flex-col mb-12">
+      <div class="flex flex-col mb-8">
         {{ form.password.errors | safe }}
         <label for="id_password" class="mb-1">Password</label>
         <input
         class="p-2 border border-neutral-300 rounded focus:outline-none"
           type="text"
           name="password"
-          placeholder="password"
+          placeholder="P@ssword!"
           required
           id="id_password"
         />
       </div>
+        {{ form.non_field_errors | safe }}
       {% if redirect_field_value %}
       <input
         type="hidden"
@@ -51,7 +53,7 @@
       {% endif %} 
       {% endslot %} 
       {% slot actions %}
-      <button class="btn btn__primary w-full" type="submit">Login</button>
+      <button class="mt-6 btn btn__primary w-full" type="submit">Login</button>
       <p class="mt-4 text-center text-gray-400">
         Don't have an account?
         <a class="text-blue-500" href="{{ signup_url }}">Sign Up</a>
