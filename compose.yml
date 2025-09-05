@@ -9,7 +9,7 @@ services:
       - ./web/:/home/app/
     ports:
     # host:container
-      - 8001:8000
+      - 8000:8000
     environment:
       DJANGO_SETTINGS_MODULE: core.settings.dev
     env_file:

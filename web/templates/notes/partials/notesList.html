@@ -10,7 +10,7 @@
       {% elif request.get_full_path == '/notes/archived/' %}
         <h2 class="text-3xl font-bold">Archived notes</h2>
       {% elif request.GET.tag %}
-        <a href="{% url 'tags:list' %}">Go back</a>
+        <a href="{% url 'tags:list' %}"><span class="text-2xl">&#8617;</span> Go back</a>
         <h2 class="text-3xl font-bold">Notes tagged: {{ request.GET.tag }}</h2>
       {% endif %}
     </div>

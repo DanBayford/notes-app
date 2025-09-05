@@ -11,7 +11,7 @@
         {{ form.title.errors }}
       {% endif %}
       <div class="flex">
-        <span class="basis-1/4 flex items-center">
+        <span class="basis-1/3 flex items-center">
           {% include 'svgs/tag.svg' with styles='w-5 mr-2' %}
           Tags: 
         </span>
@@ -21,24 +21,24 @@
         {{ form.tags.errors }}
       {% endif %}
       <div class="flex pb-2 border-b border-neutral-200 dark:border-neutral-700">
-        <span class="basis-1/4 flex items-center">
+        <span class="basis-1/3 flex items-center">
           {% include 'svgs/tag.svg' with styles='w-5 mr-2' %}
-          Last edited
+          Last edited:
         </span>
         {{ note.last_edited|date:"j M Y" }}
       </div>
       <textarea id="note-content" name="content" class="w-full h-[calc(100vh-350px)] resize-none focus:outline-none dark:bg-neutral-950">{{note.content}}</textarea>
       <div class="flex gap-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
-        <button type="submit" class="btn btn__primary">Save note</button>
+        <button type="submit" class="btn btn__primary">Save <span class="hidden sm:block">note</span></button>
         <a href="/notes" class="btn bg-neutral-100 dark:bg-neutral-500">Cancel</a>
-        <div class="ml-auto lg:hidden flex gap-2">
+         <div class="ml-auto lg:hidden flex gap-2">
         <button type="button" @click="deleteModal = true" class="btn btn__secondary">
           {% include 'svgs/delete.svg' with styles='w-6' %}
-          Delete
+          <span class="hidden sm:block">Delete</span>
         </button>
         {% if note.is_archived == False %}
         <button type="button" @click="archiveModal = true" class="btn btn__secondary">
-          {% include 'svgs/archive.svg' with styles='h-6' %}
+          <span class="hidden sm:block">{% include 'svgs/archive.svg' with styles='h-6' %}</span>
           Archive
         </button>
         {% endif %}
